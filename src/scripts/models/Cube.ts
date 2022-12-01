@@ -12,7 +12,6 @@ export default class Cube {
 		this.tier = tier
 
 		this.createAndSetSprite()
-		//App.getInstance().ticker.add(delta => (this.object.x += 0.1 * delta))
 	}
 
 	createAndSetSprite() {

@@ -16,4 +16,8 @@ export default abstract class AbstractReverseMove extends AbstractMove {
 	protected getPrevPosition(positionY: number): number {
 		return positionY - 1
 	}
+
+	protected getNextPosition(position: number): number {
+		return position + 1
+	}
 }

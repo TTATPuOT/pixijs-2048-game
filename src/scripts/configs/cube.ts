@@ -15,4 +15,5 @@ export default {
 		10: 0xedc53f, //1024
 		11: 0xedc22e, //2048
 	},
+	animationTime: 100,
 }

@@ -37,9 +37,13 @@ export interface MatrixCubeData {
 
 export default class Matrix {
 	private data: MatrixData
+	private prevData: MatrixData
+	public isLocked: boolean
 
 	constructor() {
 		this.data = Matrix.createData()
+		this.prevData = Matrix.createData()
+		this.isLocked = false
 	}
 
 	static createData(): MatrixData {
@@ -58,11 +62,17 @@ export default class Matrix {
 		)
 			return
 
+		this.prevData = [
+			[...this.data[0]],
+			[...this.data[1]],
+			[...this.data[2]],
+			[...this.data[3]],
+		]
 		this.data[positionY][positionX] = cube
 	}
 
-	getCubes(): MatrixCubeData[] {
-		return Matrix.getCubes(this.data)
+	getCubes(prev: boolean = false): MatrixCubeData[] {
+		return Matrix.getCubes(prev ? this.prevData : this.data)
 	}
 
 	static getCubes(data: MatrixData): MatrixCubeData[] {
@@ -94,6 +104,17 @@ export default class Matrix {
 	}
 
 	makeOperation(operation: AbstractMove) {
-		this.data = operation.process(this.data)
+		this.isLocked = true
+
+		operation.on('data', (data: MatrixData) => {
+			console.log('new data event', data)
+			this.data = data
+		})
+
+		operation.process(this.data).then()
+
+		operation.once('end', () => {
+			this.isLocked = false
+		})
 	}
 }

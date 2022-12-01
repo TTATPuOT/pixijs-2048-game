@@ -25,6 +25,6 @@ field.appendCube(cube3, 2, 2)
 field.appendCube(cube4, 0, 2)
 
 setTimeout(() => {
-	const move = new Down()
+	const move = new Up()
 	field.makeOperation(move)
 }, 500)
